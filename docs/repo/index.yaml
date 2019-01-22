@@ -1,0 +1,16 @@
+apiVersion: v1
+entries:
+  spring:
+  - apiVersion: v1
+    appVersion: 0.0.1
+    created: "2019-01-22T14:28:33.204144007-06:00"
+    description: Helm chart for deploying basic spring applications
+    digest: dd15784fcb4387bdbd73e881891ada3b8d9a630e2964545843730eecf2e0383c
+    home: https://github.com/paulczar/helm-chart-spring
+    maintainers:
+    - name: paulczar
+    name: spring
+    urls:
+    - https://github.com/paulczar/helm-chart-spring/releases/download/0.0.1/spring-0.0.1.tgz
+    version: 0.0.1
+generated: "2019-01-22T14:24:05.405663688-06:00"
