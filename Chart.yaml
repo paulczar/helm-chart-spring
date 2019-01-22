@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: "0.0.1"
+description: Helm chart for deploying basic spring applications
+name: spring
+version: 0.0.1
+home: https://github.com/paulczar/helm-chart-spring
+maintainers:
+  - name: paulczar
