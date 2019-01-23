@@ -72,6 +72,7 @@ tolerations: []
 affinity: {}
 
 service:
+  enabled: true
   httpPort: 80
   ## If service.type is not set to NodePort, the following statement
   ## will be ignored.

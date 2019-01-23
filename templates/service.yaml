@@ -1,7 +1,9 @@
+{{- if .Values.service.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ template "spring.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   annotations:
   {{- range $key, $value := .Values.service.annotations }}
     {{ $key }}: {{ $value | quote }}
@@ -23,3 +25,4 @@ spec:
   selector:
     app: {{ template "spring.name" . }}
     release: {{ .Release.Name | quote }}
+{{- end -}}

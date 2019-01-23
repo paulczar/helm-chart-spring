@@ -14,6 +14,7 @@ metadata:
     release: "{{ .Release.Name }}"
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
   name: {{ template "spring.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
 spec:
   rules:
   {{- range .Values.ingress.hosts }}
