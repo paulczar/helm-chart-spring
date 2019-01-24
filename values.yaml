@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: paulczar/petclinic
   tag: 2.1.0.BUILD-SNAPSHOT
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
@@ -19,7 +19,7 @@ serviceAccount:
 rbac:
   create: true
 
-annotations: {}
+podAnnotations: {}
 #  prometheus.io/scrape: "true"
 #  prometheus.io/path: "/actuator/prometheus"
 
@@ -30,7 +30,7 @@ spring:
 ## The list of ports that your app listens on
 containerPort: 8080
 
-extraEnv:
+extraEnv: {}
   ## Extra environment variables to be injected
   # DATABASE_ENGINE: mysql
   # DATABASE_HOST: mysql

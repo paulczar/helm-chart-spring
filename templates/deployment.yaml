@@ -20,7 +20,7 @@ spec:
         app: {{ include "spring.name" . }}
         release: {{ .Release.Name }}
       annotations:
-        {{ toYaml .Values.annotations | indent 8 }}
+        {{ toYaml .Values.podAnnotations | indent 8 }}
     spec:
       serviceAccountName: {{ template "spring.serviceAccountName" . }}
       containers:

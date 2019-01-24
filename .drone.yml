@@ -6,7 +6,8 @@ steps:
 - name: helm-chart-tests
   image: quay.io/helmpack/chart-testing:v2.1.0
   commands:
-    - cp -R . /tmp/spring
+    - ln -s $(pwd) /tmp/spring
     - ct lint --charts=/tmp/spring
-    - helm template . > /tmp/template.yaml
-    - helm package -d /tmp/packages .
+    - helm template /tmp/spring > /tmp/template.yaml
+    - mkdir /tmp/packages
+    - helm package -d /tmp/packages /tmp/spring
