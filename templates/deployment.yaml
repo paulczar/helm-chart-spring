@@ -23,20 +23,45 @@ spec:
         {{ toYaml .Values.podAnnotations | indent 8 }}
     spec:
       serviceAccountName: {{ template "spring.serviceAccountName" . }}
+      securityContext:
+        {{ toYaml .Values.securityContext | indent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            {{- if hasKey .Values.spring "profile" }}
             - name: SPRING_PROFILES_ACTIVE
               value: {{ .Values.spring.profile }}
+            {{- end }}
               {{- if .Values.spring.trustKubernetesCertificates }}
             - name: KUBERNETES_TRUST_CERTIFICATES
               value: "true"
               {{- end }}
+            {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "content") }}
+            - name: SPRING_CONFIG_LOCATION
+              value: "file:/config/application.yml"
+            {{- end }}
+            {{- if hasKey .Values.spring.config "secretName" }}
+            - name: SPRING_CONFIG_ADDITIONAL_LOCATION
+              value: "file:/config/secret.yml"
+            {{- end }}
             {{- range $key, $value := .Values.extraEnv }}
             - name: {{ $key }}
               value: {{ $value | quote }}
+            {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "contents") }}
+            - name: config-file
+              mountPath: /config/application.yml
+              subPath: application.yml
+            {{- end }}
+            {{- if hasKey .Values.spring.config "secretName" }}
+            - name: secret-file
+              mountPath: /config/secret.yml
+              subPath: secret.yml
             {{- end }}
           ports:
             - name: http
@@ -64,3 +89,16 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+      volumes:
+        - name: data
+          emptyDir: {}
+      {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "contents") }}
+        - name: config-file
+          configMap:
+            name: {{ include "spring.fullname" . }}-config
+      {{- end }}
+      {{- if hasKey .Values.spring.config "secretName" }}
+        - name: secret-file
+          secret:
+            secretName: {{ .Values.spring.config.secretName }}
+      {{- end }}

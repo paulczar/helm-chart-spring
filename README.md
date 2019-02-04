@@ -52,8 +52,11 @@ helm install --name my-release -f values.yaml stable/spring
 | `tolerations` | List of node taints to tolerate | `[]` |
 | `nodeSelector` | Node labels for pod assignment | `{}` |
 | `podAnnotations` | Annotations to apploy to the pod | `{}` |
-| `spring.profile` | The spring profile to activate | `dev` |
+| `spring.profile` | The spring profile to activate | `nil` |
 | `spring.trustKubernetesCertificates` | ensure spring trusts kubernetes certs | `true` |
+| `spring.config.type` | type of spring config (currently only supports `file`) | `file` |
+| `spring.config.content` | YAML to be placed in `/config/application.yml` | `nil` |
+| `spring.config.secretName` | Name of a secret containing `secret.yml:` key to be placed in `/config/secret.yml` | `nil` |
 | `containerPort` | the port your application listens on | `8080` |
 | `extraEnv` | extra environment variables to pass to your application | `{}` |
 | `livenessProbe` | Values to enable livenessProbe suitable for your application | `{}` |

@@ -24,8 +24,24 @@ podAnnotations: {}
 #  prometheus.io/path: "/actuator/prometheus"
 
 spring:
-  profile: dev
+  ## Uncomment if you want to activate a specfic spring profile
+  # profile: kubernetes
+  ## Ensures that Spring trusts Kubernetes certificate for use with
+  ## service discovery, configuration, etc.
   trustKubernetesCertificates: true
+  ## customized parameters/config for your spring app.
+  ## by default will be rendered to `/config/application.yml`
+  config:
+    ## Currently only supports file
+    type: file
+    ## Contents of config in YAML
+    # contents:
+    #   spring:
+    #     database:
+    ## An optional secret that contains a base64 encoded YAML file to be loaded in
+    ## for passwords and other secrets, by default `/config/secret.yml`
+    ## this secret must only have a single key of `secret.yml: |-`.
+    # secretName: configSecret
 
 ## The list of ports that your app listens on
 containerPort: 8080
@@ -37,6 +53,10 @@ extraEnv: {}
   # DATABASE_NAME: spring
   # DATABASE_USERNAME: spring
   # DATABASE_PASSWORD: spring
+
+securityContext: {}
+  # runAsUser: 1000
+  # fsGroup: 1000
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -114,3 +134,7 @@ ingress:
   #   - secretName: spring-tls
   #     hosts:
   #       - spring.example.io
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1

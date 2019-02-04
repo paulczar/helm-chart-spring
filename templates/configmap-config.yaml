@@ -1,0 +1,15 @@
+{{- if and ( eq .Values.spring.config.type "file") (hasKey .Values.spring.config "content") }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "spring.fullname" . }}-app
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: {{ include "spring.name" . }}
+    chart: {{ include "spring.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  application.yml:
+    {{ toYaml .Values.Spring.config.content | indent 4  }}
+{{- end }}
