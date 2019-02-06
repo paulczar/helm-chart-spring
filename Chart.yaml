@@ -10,7 +10,7 @@ icon: https://spring.io/img/homepage/icon-spring-boot.svg
 sources:
   - https://github.com/paulczar/helm-chart-spring
   - https://github.com/spring-projects/spring-petclinic
-version: 0.0.5
+version: 0.0.6
 maintainers:
   - name: paulczar
     email: username.taken@gmail.com
