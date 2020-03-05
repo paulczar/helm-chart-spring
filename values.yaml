@@ -35,7 +35,7 @@ spring:
     ## Currently only supports file
     type: file
     ## Contents of config in YAML
-    # contents:
+    # content: |-
     #   spring:
     #     database:
     ## An optional secret that contains a base64 encoded YAML file to be loaded in
