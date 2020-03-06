@@ -53,7 +53,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
-            {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "contents") }}
+            {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "content") }}
             - name: config-file
               mountPath: /config/application.yml
               subPath: application.yml
@@ -92,7 +92,7 @@ spec:
       volumes:
         - name: data
           emptyDir: {}
-      {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "contents") }}
+      {{- if and (eq .Values.spring.config.type "file") (hasKey .Values.spring.config "content") }}
         - name: config-file
           configMap:
             name: {{ include "spring.fullname" . }}-config
