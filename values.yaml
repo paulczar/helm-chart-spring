@@ -24,7 +24,7 @@ podAnnotations: {}
 #  prometheus.io/path: "/actuator/prometheus"
 
 spring:
-  ## Uncomment if you want to activate a specfic spring profile
+  ## Uncomment if you want to activate a specific spring profile
   # profile: kubernetes
   ## Ensures that Spring trusts Kubernetes certificate for use with
   ## service discovery, configuration, etc.
